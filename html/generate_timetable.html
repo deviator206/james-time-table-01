@@ -1,0 +1,168 @@
+<div  ng-init="setUp()" ng-switch="currentStep" class="container">
+	<nav>
+	  <ul class="pager">
+		<li class="previous btn" ng-click="moveToPreviousStep()" ><a  ><span aria-hidden="true">&larr;</span> Previous</a></li>
+		<li class="next btn" ng-click="moveToNextStep()"><a>Next <span aria-hidden="true">&rarr;</span></a></li>
+	  </ul>
+	</nav>
+	<div ng-switch-when="0">
+		<div class="progress-bar progress-bar-striped active" role="progressbar"
+	  aria-valuenow="50" aria-valuemin="0" aria-valuemax="50" style="width:50%">
+		<h3>Please wait ... App is Loading Data</h3>
+	  </div>
+		
+	</div>
+	<div ng-switch-when="1">
+		<div class="lead"> Step 1 : Adding Teacher  </div>	
+		<button type="button" class="btn btn-primary" data-toggle="modal" ng-click="addNewTeacherToDB()">Add Teacher Details </button>
+		  <table class="table ">
+		<!-- On cells (`td` or `th`) -->
+		<tr>
+			<th class="">Teacher ID</th>
+			<th class="">First Name </th>
+			<th class="">Last Name</th>	
+			<th class="">Action</th>			
+		</tr>
+		<!-- On cells (`td` or `th`) -->
+		<tr ng-repeat = "teacher in teacherList">
+			<td class="">{{teacher.id}}</td>
+			<td class="">{{ teacher.first_name}} </td>
+			<td class="">{{ teacher.last_name}} </td>
+			<td class=""> 
+					<!-- <button type="button" class="btn " ng-click="editTeacherHandler(teacher.id)">Edit </button> -->
+					<button type="button" class="btn " ng-click="deleteTeacherHandler(teacher.id)">Delete </button>
+			</td>
+			
+			<td class=""> </td>
+		</tr>
+		
+  </table>
+
+
+			<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			  <div class="modal-dialog modal-lg">
+				<div class="modal-content container-fluid">
+				<div class="modal-header">
+					<h4 class="modal-title" id="gridSystemModalLabel">Add New Teacher</h4>
+				</div>
+					<form>
+						  <div class="form-group">
+							<label for="exampleInputEmail1">First Name</label>
+							<input type="text" class="form-control"  placeholder="Enter First Name" ng-model="teacherModalInfo.first_name">
+						  </div>
+						  
+						  <div class="form-group">
+							<label for="exampleInputEmail1">Last Name</label>
+							<input type="text" class="form-control" ng-model="teacherModalInfo.last_name" placeholder="Enter Last Name">
+						  </div>
+						  
+					</form>
+					
+					<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" ng-click="addOrEditNewTeacher()">Save changes</button>
+				</div>
+				</div>
+			  </div>
+			</div>
+
+		
+
+	</div>
+
+	
+	<div ng-switch-when="2" ng-controller="mappingTeacherAndStudent" ng-init="setUpMapping()">
+		<div class="lead"> Step 2 : Mapping Subject and Teacher </div>	
+		<div ng-model="serverMessage"> {{displayMessage}}</div>
+		
+		
+		<button type="button" class="btn btn-primary" data-toggle="modal" ng-click="openMappingModal()" ng-class="(serverMessage=== 1)? 'hideClass':'showClass'" >Add Teacher& Subject Mapping </button>
+
+		
+  <table class="table table-hover" ng-class="(serverMessage=== 1)? 'hideClass':'showClass'">
+		<tr>
+			<th class="">#</th>
+			<th class="">Class</th>
+			<th class="">Teacher </th>
+			<th class="">Subject</th>
+			<th class="">Lectures Per Week</th>
+			<th class="">Continous</th>
+			<th class="">Action</th>
+		</tr>
+		<tr ng-repeat="sRow in csDisplayList">
+			<td class=""> {{sRow.map_id}}</td>
+			<td class=""> {{sRow.class_label}}</td>
+			<td class="">{{sRow.teacher_name}} </td>
+			<td class="">{{sRow.subject_label}}</td>
+			<td class="">{{sRow.count}}</td>
+			<td class="">{{(sRow.continous === 1) ? 'YES' : 'NO'}}</td>
+			<td><button type="button" class="btn " ng-click="deleteMapping(sRow.map_id)">Delete </button></td>
+		</tr>
+		
+		
+  </table>
+
+  <div class="modal fade bs-example-modal-relation" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="gridSystemModalLabel">Class- Subject -Teacher Mapping</h4>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+             <form class="form" role="form">
+						  <div class="form-group">
+							<label >Select Class</label>
+							<select ng-change="dropdownClassChanged()" ng-options="item as item.class_label for item in class_list"  ng-model="dropdownClass" >
+							</select>
+						  </div>
+						  
+						  <div class="form-group">
+							<label >Select Subject</label>
+							<select ng-change="dropdownSubjectChanged()" ng-options="item as item.subject_label for item in subjectList"  ng-model="dropdownSubject" >
+								
+							</select>
+							
+							<label >Lectures Per Week</label>
+							<span ng-model="dropdownSubject"> {{dropdownSubject.count}}</span>
+							
+							<label >Consecutive</label>
+							<span ng-model="dropdownSubject"> {{(dropdownSubject.continous === 1) ? 'YES':'NO'}}</span>
+						  </div>
+						  <div class="form-group">
+							<label >Select Teacher</label>
+							<select ng-change="dropdownTeacherChanged()" ng-options="item as item.teacher_name for item in teacherList"  ng-model="dropdownTeacher">
+							</select>
+						  </div>
+					</form>
+            </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" ng-click="saveMapping()">Save Mapping</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  
+
+
+	</div>
+
+	
+	<div ng-switch-when="3">
+		<span class="lead"> Step 3  : Generate Time Table</span>	
+	
+	
+	</div>
+
+	
+	<div ng-switch-when="4">
+		<span class="lead"> Step 4 </span>	
+	
+	</div>
+
+	
+</div>

@@ -1,0 +1,18 @@
+create database dev_teacher;
+
+//teacher table
+create table teacher (teacherid int,firstname  varchar(100),lastname varchar(100), isactive int );
+alter table teacher change teacherid teacherid int NOT NULL AUTO_INCREMENT;
+
+//class Table
+create table class (classid int not null auto_increment, name varchar(40), isactive int not null , primary key (classid));
+
+//SUBJECT table
+create table subject (subjectid int not null auto_increment, name varchar(40), isactive int not null , classid int, primary key (subjectid),foreign key (classid) references class (classid));
+
+
+//map table
+create table map_teach_sub (mapid int not null auto_increment, classid int,subjectid int,teacherid int, isactive int not null ,  primary key (mapid),foreign key (classid) references class (classid),foreign key (teacherid) references teacher (teacherid),foreign key (subjectid) references subject (subjectid));
+
+
+addTeacher 

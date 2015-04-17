@@ -1,0 +1,30 @@
+<div class="container">
+	<form class="form" role="form" ng-init="initScreen()">
+						  <div class="form-group">
+							<label for="exampleInputEmail1">Select Class</label>
+							<select  ng-change="showTimeTable()" ng-options="item as item.class_label for item in classList"  ng-model="sampleModel">
+							<option>select</option>
+							</select>
+							
+						 </div>
+	</form>
+	
+  <table class="table ">
+		<tr>
+			<th class="">Time</th>
+			<th ng-repeat="item  in daysList">{{item.day_label}} </th>
+		</tr>
+		<tr ng-repeat = "slot in tt">
+			<td ng-repeat = "single in slot track by $index" ng-class="(slot.length > 1) ? 'selected' : 'sss'"  ng-selected="$first">{{single}}</td>
+		</tr>
+		
+		
+		
+  </table>	
+  <div class="btn btn-default" ng-click="printPage()"> Print Time Table </div>
+  
+  </div>
+  
+  
+  
+

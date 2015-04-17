@@ -1,0 +1,79 @@
+{
+	"teachers":[{ "id":1,"first_name":"kerry","last_name":"Joseph"},{ "id":2,"first_name":"sarah","last_name":"Joseph"}],
+	"classAndSubject":[],
+	"onlyClass":[
+		{
+			"class_id":"class12",
+			"class_label":"I"
+		},
+		{
+			"class_id":"class13",
+			"class_label":"IX"
+		},
+		{
+			"class_id":"class14",
+			"class_label":"II"
+		},
+		{
+			"class_id":"class15",
+			"class_label":"VI"
+		},
+		{
+			"class_id":"class16",
+			"class_label":"III"
+		}
+	 ],
+	 "onlyMetaData" : {
+					"days":	[
+							 {
+								"day_id" :1,
+								"day_label":"Monday"
+							 },
+							 {
+								"day_id" :2,
+								"day_label":"Tuesday"
+							 },
+							 {
+								"day_id" :3,
+								"day_label":"Wednesday"
+							 },
+							 {
+								"day_id" :4,
+								"day_label":"Thursday"
+							 },
+							 {
+								"day_id" :5,
+								"day_label":"Friday"
+							 }
+					 ],
+					"slots":[
+						{
+							"slot_id":"k21",
+							"slot_label":"8-9"
+						},
+						{
+							"slot_id":"k22",
+							"slot_label":"9-10"
+						},
+						{
+							"slot_id":"k23",
+							"slot_label":"10-11"
+						},
+						{
+							"slot_id":"k24",
+							"slot_label":"11-12"
+						},
+						{
+							"slot_id":"k25",
+							"slot_label":"12-1"
+						}
+					
+					] 
+			},
+	
+		"readOnlyTimeTable" :[["8-9","Hindi","History","Computer","RECESS1","RECESS2"],
+							  ["9-10","Hindi","History","Computer","RECESS1","Computer"],
+							  ["10-11","","","break","",""],
+							["11-12","Hindi","History","Computer","RECESS1","Computer"]		],
+		"classDetails":{}
+	 	}
